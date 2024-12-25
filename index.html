@@ -1,0 +1,421 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>แถบระดับแบบสองคอลัมน์</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Kanit:wght@400;600&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Kanit', sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            height: 100vh;
+            background: url("https://a.storyblok.com/f/191576/768x432/ba1ffaa6d8/christmas_backgrounds_cover_2x.webp")no-repeat center center fixed;
+            -webkit-background-size: cover;
+            -moz-background-size: cover;
+            -o-background-size: cover;
+            background-size: cover;
+        }
+
+        .left-column {
+            width: 20%;
+            min-width: 100px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-color: #fff0;
+        }
+
+        .right-column {
+            width: 80%;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            background-color: #ffffff00;
+        }
+
+
+        /* ******progressbar********* */
+        .progress-container {
+            position: relative;
+            height: 90%;
+            width: 80px;
+            display: flex;
+            flex-direction: column-reverse;
+            align-items: center;
+            justify-content: center;
+            
+        }
+
+        .progress-bar {
+            position: relative;
+            width: 100px;
+            height: 100%;
+            border: 1px solid #e7e7e7;
+            border-radius: 5px;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column-reverse;
+            background-color: #fff5;
+        }
+
+        .level {
+            width: 100%;
+            transition: height 0.3s ease;
+        }
+
+        .green {
+            background-color: rgb(0, 128, 0);
+        }
+
+        .yellow {
+            background-color: rgb(255, 255, 0);
+        }
+
+        .red {
+            background-color: rgb(255, 0, 0);
+        }
+
+        .tick-marks {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            flex-direction: column-reverse;
+            justify-content: space-between;
+        }
+
+        .tick-marks div {
+            position: relative;
+            width: 100%;
+            height: 1px;
+            background-color: rgb(211, 205, 205);
+            margin: 2 auto;
+        }
+
+        .current-level {
+            margin-bottom: 20px;
+            font-size: 20px;
+        }
+
+        button {
+            margin: 10px;
+            padding: 10px 20px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+
+        .text-center {
+            text-align: center;
+        }
+
+
+        /* ******ข้อสอบ********* */
+        h1 {
+            color: red;
+            background-color: rgba(227, 242, 253, 0.9);
+            border-radius: 8px;
+            display: inline-block;
+            padding: 10px 30px;
+            min-width: 300px;
+            text-align: center;
+        }
+
+        .dashboard {
+            margin: 20px;
+            padding: 10px 50px;
+            background-color: rgba(227, 242, 253, 0.9);
+            border-radius: 8px;
+            min-width: 300px;
+            margin: 20px auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 18px;
+            color: red;
+        }
+
+        .question-container {
+            margin: 20px auto;
+            padding: 20px;
+            background-color: rgba(255, 255, 255, 0.9);
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            max-width: 600px;
+        }
+
+        #question {
+            color: red;
+        }
+
+        #choices {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        button.button {
+            display: block;
+            width: 60%;
+            margin: 10px 0;
+            padding: 10px;
+            font-size: 16px;
+            background-color: red;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-family: 'Kanit', sans-serif;
+        }
+
+        button.button:hover {
+            background-color: darkred;
+        }
+
+        .end-message {
+            color: red;
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- คอลัมน์ซ้าย -->
+    <div class="left-column">
+        
+        <!-- progress-bar -->
+        <div class="progress-container">
+            <div class="progress-bar">
+                <div class="level green" style="height: 0%;"></div>
+                <div class="level yellow" style="height: 0%;"></div>
+                <div class="level red" style="height: 0%;"></div>
+            </div>
+            <div class="tick-marks">
+                <!-- ขีดระดับ -->
+                <div class="text-center"></div>
+                <div class="text-center">
+                    <p id="1">1,000</p>
+                </div>
+                <div class="text-center">
+                    <p id="2">2,000</p>
+                </div>
+                <div class="text-center">
+                    <p id="3">3,000</p>
+                </div>
+                <div class="text-center">
+                    <p id="4">4,000</p>
+                </div>
+                <div class="text-center">
+                    <p id="5">5,000</p>
+                </div>
+                <div class="text-center">
+                    <p id="6">10,000</p>
+                </div>
+                <div class="text-center">
+                    <p id="7">20,000</p>
+                </div>
+                <div class="text-center">
+                    <p id="8">30,000</p>
+                </div>
+                <div class="text-center">
+                    <p id="9">50,000</p>
+                </div>
+                <div class="text-center">
+                    <p id="10">60,000</p>
+                </div>
+                <div class="text-center">
+                    <p id="11">750,000</p>
+                </div>
+                <div class="text-center">
+                    <p id="12">100,000</p>
+                </div>
+                <div class="text-center">
+                    <p id="13">300,000</p>
+                </div>
+                <div class="text-center">
+                    <p id="14">500,000</p>
+                </div>
+                <div class="text-center">
+                    <p id="15">1,000,000</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- คอลัมน์ขวา -->
+    <div class="right-column">
+        <h1>เกมเศรษฐี</h1>
+        <div class="dashboard">
+            <div>เงินรางวัล <span id="score">0</span> บาท</div>
+            <div>เวลา: <span id="timer">20:00</span></div>
+        </div>
+        <div class="question-container" id="game-container">
+            <h2 id="question">คำถามจะแสดงที่นี่</h2>
+            <div id="choices"></div>
+        </div>
+    </div>
+
+
+
+    <!-- ****************************************************************** -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script>
+
+        document.addEventListener("DOMContentLoaded", (event) => {
+            startTimer();
+            showQuestion();
+        })
+
+        // การตั้งค่าระดับเริ่มต้น
+        let currentLevel = 0;
+        const maxLevel = 15;
+        let currentQuestion = 0;
+        let score = 0
+        let timer = 1200; // 20 minutes in seconds
+        let interval; // ประกาศตัวแปร interval ภายนอก เพื่อให้ควบคุมได้จากฟังก์ชันอื่น
+
+
+
+        // อ้างอิงองค์ประกอบ HTML
+        const green = document.querySelector('.green');
+        const yellow = document.querySelector('.yellow');
+        const red = document.querySelector('.red');
+        //const currentLevelText = document.querySelector('.current-level');
+
+        // ฟังก์ชันอัปเดตแถบระดับ
+        function updateProgressBar() {
+            const percentage = (currentLevel / maxLevel) * 100;
+            score = getScore(currentLevel)
+
+            // คำนวณความสูงของแต่ละสี
+            green.style.height = Math.min(60, percentage) + '%';
+            yellow.style.height = Math.max(0, Math.min(26.67, percentage - 60)) + '%';
+            red.style.height = Math.max(0, percentage - 86.67) + '%';
+
+            // อัปเดตข้อความระดับ
+            document.getElementById('score').textContent = score;
+        }
+
+        // ฟังก์ชันสำหรับดึงค่าคะแนนของระดับที่ต้องการ
+        function getScore(levelId) {
+            levelElement = document.getElementById(levelId); // เข้าถึง element โดยใช้ id
+            if (levelElement) {
+                return levelElement.textContent; // ดึงข้อความในระดับที่ต้องการ
+            }
+            return "ระดับไม่พบ"; // กรณีไม่พบระดับ
+        }
+
+
+
+
+        /*************** ข้อสอบ *******************/
+        // คำถามในเกม
+        const questions = [
+            { question: "วันคริสต์มาสตรงกับวันที่เท่าไหร่?", choices: ["24 ธันวาคม", "25 ธันวาคม", "31 ธันวาคม", "1 มกราคม"], answer: 1 },
+            { question: "สัญลักษณ์สำคัญของวันคริสต์มาสคืออะไร?", choices: ["ต้นคริสต์มาส", "ไฟประดับ", "ของขวัญ", "ทั้งหมดที่กล่าวมา"], answer: 3 },
+            { question: "นักบุญที่เกี่ยวข้องกับวันคริสต์มาสคือใคร?", choices: ["นักบุญเปโตร", "นักบุญโยเซฟ", "นักบุญนิโคลัส", "นักบุญยอห์น"], answer: 2 },
+            { question: "ใครคือบุคคลที่นำของขวัญมาให้พระเยซู?", choices: ["ราชาผู้วิเศษสามคน", "นักบุญเปโตร", "ชาวประมง", "นักบวช"], answer: 0 },
+            { question: "สีหลักที่ใช้ในเทศกาลคริสต์มาสคือสีอะไร?", choices: ["แดงและเขียว", "น้ำเงินและขาว", "ทองและเงิน", "ดำและเหลือง"], answer: 0 },
+            { question: "คำอวยพรยอดนิยมในวันคริสต์มาสคืออะไร?", choices: ["Merry Christmas", "Happy Holidays", "Season's Greetings", "ทั้งหมดที่กล่าวมา"], answer: 3 },
+            { question: "อาหารที่นิยมในวันคริสต์มาสคืออะไร?", choices: ["ไก่งวง", "ขนมปังขิง", "พุดดิ้ง", "ทั้งหมดที่กล่าวมา"], answer: 3 },
+            { question: "เพลงคริสต์มาสยอดนิยมที่เริ่มต้นว่า 'Jingle bells, jingle bells' ชื่อเพลงว่าอะไร?", choices: ["Jingle Bells", "Silent Night", "White Christmas", "Deck the Halls"], answer: 0 },
+            { question: "ตัวละครยอดนิยมในเทศกาลคริสต์มาสที่มีจมูกสีแดงคือใคร?", choices: ["Rudolph", "Santa Claus", "Frosty", "Elf"], answer: 0 },
+            { question: "สถานที่ที่พระเยซูเกิดเรียกว่าอะไร?", choices: ["นาซาเร็ธ", "เบธเลเฮม", "เยรูซาเลม", "กาเลลี"], answer: 1 },
+            { question: "ใครคือบุคคลที่แจกของขวัญในวันคริสต์มาส?", choices: ["ซานตาคลอส", "ราชาวิเศษ", "เอลฟ์", "นักบุญเปโตร"], answer: 0 },
+            { question: "ต้นคริสต์มาสแบบดั้งเดิมมักเป็นต้นไม้ชนิดใด?", choices: ["สน", "มะพร้าว", "โอ๊ก", "เมเปิ้ล"], answer: 0 },
+            { question: "เพลงคริสต์มาส 'Silent Night' มีชื่อภาษาไทยว่าอะไร?", choices: ["คืนเงียบสงบ", "คืนพิเศษ", "คืนหิมะ", "คืนแห่งปาฏิหาริย์"], answer: 0 },
+            { question: "เครื่องดื่มยอดนิยมในวันคริสต์มาสคืออะไร?", choices: ["Eggnog", "ช็อกโกแลตร้อน", "ไวน์แดง", "ชาเขียว"], answer: 0 },
+            { question: "เทศกาลคริสต์มาสมีจุดมุ่งหมายเพื่อเฉลิมฉลองอะไร?", choices: ["การเกิดของพระเยซู", "การเริ่มต้นปีใหม่", "การรวมตัวครอบครัว", "การให้ของขวัญ"], answer: 0 }
+        ]
+
+
+        // เริ่มจับเวลา
+        function startTimer() {
+            const timerElement = document.getElementById('timer');
+
+            const interval = setInterval(() => {
+                if (timer <= 0) {
+                    clearInterval(interval);
+                    endGame();
+                } else {
+                    timer--;
+                    const minutes = Math.floor(timer / 60);
+                    const seconds = timer % 60;
+                    timerElement.textContent = `${minutes}:${seconds.toString().padStart(2, '0')}`;
+                }
+            }, 1000);
+        }
+
+        // หยุดจับเวลาและเซ็ต 0
+        function stopAndResetTimer() {
+            const timerElement = document.getElementById('timer');
+            const scoreElement = document.getElementById('score');
+
+            clearInterval(interval); // หยุด interval
+            timer = 0; // เซ็ตค่า timer เป็น 0
+
+            timerElement.textContent = "0:00"; // อัปเดตการแสดงผล
+            scoreElement.textContent = 0
+        }
+
+        // แสดงข้อสอบ
+        function showQuestion() {
+            const questionElement = document.getElementById('question');
+            const choicesContainer = document.getElementById('choices');
+            const scoreElement = document.getElementById('score');
+
+            if (currentQuestion < questions.length) {
+                const current = questions[currentQuestion];
+                questionElement.textContent = `ข้อที่ ${currentQuestion + 1}  ${current.question}`;
+                choicesContainer.innerHTML = '';
+
+                current.choices.forEach((choice, index) => {
+                    const button = document.createElement('button');
+                    button.textContent = choice;
+                    button.classList.add("button")
+                    button.addEventListener('click', () => checkAnswer(index));
+                    choicesContainer.appendChild(button);
+                });
+            } else {
+                endGame();
+            }
+        }
+
+        // ตรวจคำตอบ
+        function checkAnswer(selected) {
+            const current = questions[currentQuestion];
+
+            if (selected === current.answer) {
+                //score += (currentQuestion + 1) * 500;
+                currentLevel++;
+                updateProgressBar();
+
+                Swal.fire('ถูกต้อง!', `คุณมีเงินรางวัลสะสม ${score} บาท`, 'success').then(() => {
+                    currentQuestion++;
+                    showQuestion();
+                });
+            } else {
+                Swal.fire('เกมจบลงแล้ว!', '', 'error').then(() => {
+                    endGame();
+                });
+            }
+        }
+        
+        // จบเกม
+        function endGame() {
+            const totalscore = score && score > 0 ? score : 1000;
+            document.getElementById('game-container').innerHTML = `<h2 class='end-message'>คุณได้รับเงินรางวัล <span style="color: red;"> ${score}</span> บาท</h2>`;
+            stopAndResetTimer()
+            
+        }
+
+
+    </script>
+</body>
+
+</html>
