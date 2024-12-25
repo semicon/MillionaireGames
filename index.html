@@ -408,7 +408,7 @@
         // จบเกม
         function endGame() {
             const totalscore = score && score > 0 ? score : 1000;
-            document.getElementById('game-container').innerHTML = `<h2 class='end-message'>คุณได้รับเงินรางวัล <span style="color: red;"> ${score}</span> บาท</h2>`;
+            document.getElementById('game-container').innerHTML = `<h2 class='end-message'>คุณได้รับเงินรางวัล <span style="color: red;"> ${totalscore}</span> บาท</h2>`;
             stopAndResetTimer()
             
         }
